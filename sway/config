@@ -32,6 +32,13 @@ input "11311:40:SNSL0028:00_2C2F:0028_Touchpad" {
 
 }
 
+
+input "type:keyboard" {
+    xkb_layout us,de
+    xkb_variant ,nodeadkeys
+    xkb_options grp:rctrl_toggle
+}
+
 ### Key bindings
 
 # Start a terminal
@@ -169,7 +176,9 @@ bar { swaybar_command waybar }
 
 exec waybar
 exec swayidle -w before-sleep 'swaylock -f -c 000000'
-exec swaynag-battery --threshold 10 --interval 10s
+
+# waybar now flashes - no need for swaynag-battery now
+# exec swaynag-battery --threshold 10 --interval 10s
 
 # mako implements freedesktop dbus notificaton api
 exec mako

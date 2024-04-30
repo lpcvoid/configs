@@ -1,26 +1,11 @@
 {
     "layer": "top",
-    "modules-left": ["sway/mode", "sway/workspaces"],
-    "modules-center":["privacy"],
-    "modules-right": ["tray", "custom/platform-profile", "cpu", "memory", "custom/i-gpu-usage", "network", "battery","pulseaudio", "clock"],
+    "modules-left": ["sway/mode", "sway/workspaces", "tray" ,"privacy"],
+    "modules-right": ["custom/platform-profile", "cpu", "memory", "custom/i-gpu-usage", "network", "battery","pulseaudio", "sway/language", "clock"],
     
-    "wlr/taskbar": {
-        "format": "{icon}",
-        "icon-size": 14,
-        "icon-theme": "Numix-Circle",
-        "tooltip-format": "{title}",
-        "on-click": "activate",
-        "on-click-middle": "close",
-        "ignore-list": [
-        "Alacritty"
-        ],
-        "app_ids-mapping": {
-        "firefoxdeveloperedition": "firefox-developer-edition"
-        },
-        "rewrite": {
-            "Firefox Web Browser": "Firefox",
-            "Foot Server": "Terminal"
-        }
+    "sway/language": {
+        "format": "{short}",
+        "on-click": "swaymsg input type:keyboard xkb_switch_layout next"
     },
     
     "custom/i-gpu-usage": {
@@ -30,7 +15,6 @@
         "interval": 1,
         "min-length": 10
     },
-    
     
     "pulseaudio": {
         "format": "{icon} {volume}%",
@@ -46,7 +30,6 @@
             "default": ["", ""]
         },
         "scroll-step": 1,
-        "on-click": "pavucontrol",
         "min-length": 7
     },
     
@@ -58,19 +41,19 @@
     
     
     "battery": {
-    "interval": 5,
-    "states": {
-        "warning": 30,
-        "critical": 10
-    },
-    "format": "{icon} {capacity}% ({power}W)",
-    "format-icons": ["", "", "", "", ""],
-    "min-length": 18
+        "interval": 5,
+        "states": {
+            "warning": 30,
+            "critical": 10
+        },
+        "format": "{icon} {capacity}% ({power}W)",
+        "format-icons": ["", "", "", "", ""],
+        "min-length": 18
     },
     
     
     "clock": {
-        "interval": 60,
+        "interval": 25,
         "tooltip": true,
         "format": "{:%H:%M}",
         "tooltip-format": "{:%Y-%m-%d}",
@@ -97,7 +80,7 @@
 
     "custom/platform-profile": {
         "format": "🖥 {}",
-        "max-length": 40,
+        "max-length": 20,
         "on-click": "powerprofilesctl set power-saver",
         "on-click-middle": "powerprofilesctl set balanced",
         "on-click-right": "powerprofilesctl set performance",

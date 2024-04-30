@@ -53,7 +53,7 @@ button:hover {
     background-color: #eb4d4b;
 }
 
-#pulseaudio, #network, #cpu, #memory, #temperature, #clock, #window, #battery, #custom-i-gpu-usage, #sway-workspaces, #custom-platform-profile {
+#pulseaudio, #network, #cpu, #memory, #temperature, #clock, #window, #battery, #custom-i-gpu-usage, #sway-workspaces, #custom-platform-profile, #language {
     padding-left: 8px;
     padding-right: 8px;
 
