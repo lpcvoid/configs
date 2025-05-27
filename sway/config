@@ -20,8 +20,23 @@ set $menu fuzzel
 include /etc/sway/config-vars.d/*
 include /etc/sway/config.d/*
 
+# hide title if there's only a single window
+# actually, this doesn't seem possible yet:
+# https://github.com/swaywm/sway/issues/7409
+# https://github.com/swaywm/sway/pull/8248
+
+# so far, all this does is hide the border when there's more than one child window
+hide_edge_borders --i3 smart
+smart_borders on
+smart_gaps on
+
+
 # wallpaper
-# output * bg /home/lpcvoid/bg/3d-astronaut.jpg fill
+output * {
+	bg /home/lpcvoid/bg.jpg fill
+	max_render_time 1 
+	adaptive_sync off 
+}
 
 # touchpad
 input "11311:40:SNSL0028:00_2C2F:0028_Touchpad" {
@@ -53,7 +68,7 @@ bindsym $mod+q kill
 bindsym $mod+d exec $menu
 
 # lock session
-bindsym $mod+l exec swaylock -d -c 000000
+bindsym $mod+Alt+l exec swaylock -d -c 000000
 
 # screenshot region
 bindsym $mod+Shift+s exec grimshot copy area
@@ -62,8 +77,6 @@ bindsym $mod+Shift+s exec grimshot copy area
 bindsym XF86MonBrightnessUp exec light -A 5
 bindsym XF86MonBrightnessDown exec light -U 5
 
-# for various config stuff
-bindsym $mod+g exec gnome-control-center
 
 # audio
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-send "Muted" -c "audio" -t 100
@@ -83,6 +96,10 @@ bindsym $mod+Shift+c reload
 # Exit sway (logs you out of your Wayland session)
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
+
+for_window [title = "Firefox - Sharing Indicator"] floating enable, sticky enable
+for_window [title = "Firefox — Sharing Indicator"] floating enable, sticky enable
+
 #
 # Moving around:
 #
@@ -92,19 +109,29 @@ bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym $mod+$right focus right
 
+# nvim bindings just to see if I like it
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+
 # Move the focused window with the same, but add Shift
 bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
 
+# Move with nvim hotkeys
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+
 #
 # Workspaces:
 #
-
-for_window [title = "Firefox - Sharing Indicator"] floating enable, sticky enable
-for_window [title = "Firefox — Sharing Indicator"] floating enable, sticky enable
-
 # workspace names
 set $ws1 dev
 set $ws2 web
@@ -175,10 +202,7 @@ xwayland force
 bar { swaybar_command waybar }
 
 exec waybar
-exec swayidle -w before-sleep 'swaylock -f -c 000000'
-
-# waybar now flashes - no need for swaynag-battery now
-# exec swaynag-battery --threshold 10 --interval 10s
+#exec swayidle -w before-sleep 'swaylock -f -c 000000'
 
 # mako implements freedesktop dbus notificaton api
 exec mako
@@ -190,8 +214,7 @@ exec keepassxc
 workspace number 3
 exec thunderbird
 workspace number 2
-# exec flatpak run org.mozilla.firefox
+exec firefox
 workspace number 1
 exec foot
-#exec clion
 

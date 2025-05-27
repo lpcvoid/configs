@@ -1,8 +1,53 @@
 {
     "layer": "top",
-    "modules-left": ["sway/mode", "sway/workspaces", "tray" ,"privacy"],
-    "modules-right": ["custom/platform-profile", "cpu", "memory", "custom/i-gpu-usage", "network", "battery","pulseaudio", "sway/language", "clock"],
-    
+    "modules-left": ["privacy", "sway/mode", "sway/workspaces", "tray", "sway/language"],
+    "modules-center": ["cpu"],
+    "modules-right": ["power-profiles-daemon", "memory", "network", "battery","pulseaudio", "clock"],
+
+    "wlr/workspaces": {
+        "format": "{icon}",
+        "on-click": "activate",
+        "format-icons": {
+            "1": "T",
+            "2": "B",
+            "3": "C",
+            "4": "P",
+        },
+        "sort-by-number": true
+    },
+
+
+   // "cava": {
+   //       "cava_config": "$XDG_CONFIG_HOME/cava/cava.conf",
+   //     "framerate": 30,
+   //     "autosens": 0,
+   //     "sensitivity": 10,
+   //     "bars": 14,
+   //     "lower_cutoff_freq": 50,
+   //     "higher_cutoff_freq": 10000,
+   //     "hide_on_silence" : true,
+   //     "method": "pulse",
+   //     "source": "auto",
+   //     "stereo": false,
+   //     "reverse": false,
+   //     "bar_delimiter": 0,
+   //     "monstercat": true,
+   //     "waves": false,
+   //     "noise_reduction": 0.2,
+   //     "input_delay": 2,
+   //     "format-icons" : ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
+   //     "min-length" : 27,
+   //     "actions": {
+   //                "on-click-right": "mode"
+   //                }
+   // },
+
+    "mpris": {
+        "interval": 3,
+	    "format": "▶ {artist} - {title}",
+	    "format-paused": "■ <i>{artist} - {title}</i>",
+    },
+
     "sway/language": {
         "format": "{short}",
         "on-click": "swaymsg input type:keyboard xkb_switch_layout next"
@@ -51,13 +96,39 @@
         "min-length": 18
     },
     
-    
+        
+
     "clock": {
-        "interval": 25,
-        "tooltip": true,
         "format": "{:%H:%M}",
-        "tooltip-format": "{:%Y-%m-%d}",
-    },
+        "format-alt": "{:%A, %B %d, %Y (%R)}  ",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+                    "mode"          : "year",
+                    "mode-mon-col"  : 3,
+                    "weeks-pos"     : "right",
+                    "on-scroll"     : 1,
+                    "format": {
+                              "months":     "<span color='#ffead3'><b>{}</b></span>",
+                              "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+                              "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+                              "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+                              "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+                              }
+                    },
+        "actions":  {
+                    "on-click-right": "mode",
+                    "on-click-forward": "tz_up",
+                    "on-click-backward": "tz_down",
+                    "on-scroll-up": "shift_up",
+                    "on-scroll-down": "shift_down"
+                    }
+    }, 
+    //"clock": {
+    //    "interval": 25,
+    //    "tooltip": true,
+    //    "format": "{:%H:%M}",
+    //    "tooltip-format": "{:%Y-%m-%d}",
+    //},
     
     
     "cpu": {
@@ -76,20 +147,31 @@
      ]
     },
     
-    
+"power-profiles-daemon": {
+  "format": "{profile}",
+  "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+  "tooltip": true,
+  "format-icons": {
+    "default": "",
+    "performance": "",
+    "balanced": "",
+    "power-saver": ""
+  }
+},
 
-    "custom/platform-profile": {
-        "format": "🖥 {}",
-        "max-length": 20,
-        "on-click": "powerprofilesctl set power-saver",
-        "on-click-middle": "powerprofilesctl set balanced",
-        "on-click-right": "powerprofilesctl set performance",
-        "smooth-scrolling-threshold": 5, // This value was tested using a trackpad, it should be lowered if using a mouse.
-        "on-scroll-up": "powerprofilesctl set performance",
-        "on-scroll-down": "powerprofilesctl set power-saver",
-        "exec": "cat /sys/firmware/acpi/platform_profile", // this is faster than "powerprofilesctl get"
-        "interval": 1
-    },
+
+   // "custom/platform-profile": {
+   //     "format": "🖥 {}",
+   //     "max-length": 20,
+   //     "on-click": "powerprofilesctl set power-saver",
+   //     "on-click-middle": "powerprofilesctl set balanced",
+   //     "on-click-right": "powerprofilesctl set performance",
+   //     "smooth-scrolling-threshold": 5, // This value was tested using a trackpad, it should be lowered if using a mouse.
+   //     "on-scroll-up": "powerprofilesctl set performance",
+   //     "on-scroll-down": "powerprofilesctl set power-saver",
+   //     "exec": "cat /sys/firmware/acpi/platform_profile", // this is faster than "powerprofilesctl get"
+   //     "interval": 1
+   // },
     
     
     "memory": {
@@ -101,13 +183,14 @@
 
     "network": {
      "format": "{ifname}",
-     "format-wifi": "📶{signalStrength}%",
+     "format-wifi": "ᯤ{signalStrength}%",
      "format-ethernet": "🖧 {ipaddr}",
      "format-disconnected": "", //An empty format will hide the module.
      "tooltip-format": "{ifname} via {gwaddr} ",
      "tooltip-format-wifi": "{essid} ({signalStrength}%) rx {bandwidthDownBytes} tx {bandwidthUpBytes}",
      "tooltip-format-ethernet": "{ifname} rx {bandwidthDownBytes} tx {bandwidthUpBytes}",
      "tooltip-format-disconnected": "no net",
+     "on-click": "foot nmtui",
      "min-length": 10,
      "interval": 1
     },
