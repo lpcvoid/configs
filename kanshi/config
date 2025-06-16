@@ -1,0 +1,24 @@
+
+profile {
+	output eDP-1 mode 1920x1200 position 0,0
+	output "BNQ BenQ EX3501R 91K00033019" mode 3440x1440 position 1920,0 
+}
+
+profile {
+	# buero ganz hinten, blickrichtung wand
+  output "Acer Technologies CBA272 H C338093713W01" mode 1920x1080 position 0,0
+	output eDP-1 mode 1920x1200 position 979,1080
+  output "Acer Technologies XV270 TQJEE0068524" mode 1920x1080 position 1920,0
+}
+
+profile {
+	# mein bueroarbeitsplatz
+	output eDP-1 mode 1920x1200 position 0,960
+	output "ASUSTek COMPUTER INC VY27UQ S3LMTF104365" mode 3840x2160 position 1920,358 scale 1.2 
+	output "ASUSTek COMPUTER INC VY27UQ S3LMTF104368" mode 3840x2160 position 5122,358 scale 1.2
+
+}
+
+profile {
+	output eDP-1 mode 1920x1200 position 0,0
+}

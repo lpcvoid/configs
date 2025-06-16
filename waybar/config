@@ -2,7 +2,7 @@
     "layer": "top",
     "modules-left": ["privacy", "sway/mode", "sway/workspaces", "tray", "sway/language"],
     "modules-center": ["cpu"],
-    "modules-right": ["power-profiles-daemon", "memory", "network", "battery","pulseaudio", "clock"],
+    "modules-right": ["power-profiles-daemon", "memory", "network", "bluetooth", "battery","pulseaudio", "clock"],
 
     "wlr/workspaces": {
         "format": "{icon}",
@@ -61,6 +61,16 @@
         "min-length": 10
     },
     
+    "bluetooth": {
+	    "format": " {status}",
+	    "format-connected": " {device_alias}",
+	    "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+	    // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+	    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+	    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+	    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+	    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+    },
     "pulseaudio": {
         "format": "{icon} {volume}%",
         "format-bluetooth": "{icon} {volume}%",
@@ -74,7 +84,8 @@
             "car": "",
             "default": ["", ""]
         },
-        "scroll-step": 1,
+        "scroll-step": 5,
+	    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "min-length": 7
     },
     
@@ -88,7 +99,8 @@
     "battery": {
         "interval": 5,
         "states": {
-            "warning": 30,
+            "warning": 20,
+            "low": 15,
             "critical": 10
         },
         "format": "{icon} {capacity}% ({power}W)",

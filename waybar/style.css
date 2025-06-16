@@ -54,6 +54,7 @@ button:hover {
 }
 
 #pulseaudio,
+#bluetooth,
 #cava,
 #mpris,
 #network,
@@ -91,26 +92,6 @@ button:hover {
   font-size: 20px;
 }
 
-#window {
-  min-width: 500px;
-}
-
-#clock {
-  font-size: 14px;
-}
-
-#cpu {
-  background-color: transparent;
-  color: #ffffff;
-}
-
-#disk {
-  background-color: #964b00;
-}
-
-#backlight {
-  background-color: #90b1b1;
-}
 
 #privacy {
   background-color: #ff3333;
@@ -130,6 +111,18 @@ button:hover {
 #battery.plugged {
   color: #ffffff;
   background-color: #26a65b;
+}
+
+#battery.warning {
+  color: #FFFF00;
+}
+
+#battery.low {
+  color: #FF6347;
+}
+
+#bluetooth.off {
+  color: #FF0000;
 }
 
 @keyframes blink {

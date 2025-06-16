@@ -13,8 +13,6 @@ set $up up
 set $right right
 set $term foot
 
-#set $menu bemenu-run --fn $uifont -b -p "▶" --tf "$prompt" --hf "$highlight" --sf "$highlight" --scf "$highlight" | xargs swaymsg exec
-
 set $menu fuzzel
 
 include /etc/sway/config-vars.d/*
@@ -34,7 +32,8 @@ smart_gaps on
 # wallpaper
 output * {
 	bg /home/lpcvoid/bg.jpg fill
-	max_render_time 1 
+	# this causes cursor lag!
+#	max_render_time 1 
 	adaptive_sync off 
 }
 
@@ -68,7 +67,7 @@ bindsym $mod+q kill
 bindsym $mod+d exec $menu
 
 # lock session
-bindsym $mod+Alt+l exec swaylock -d -c 000000
+bindsym $mod+Alt+l exec swaylock
 
 # screenshot region
 bindsym $mod+Shift+s exec grimshot copy area
@@ -82,7 +81,9 @@ bindsym XF86MonBrightnessDown exec light -U 5
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-send "Muted" -c "audio" -t 100
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && notify-send "Volume +5%" -c "audio" -t 100
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && notify-send "Volume -5%" -c "audio" -t 100
-
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay exec playerctl play-pause
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
 # Despite the name, also works for non-floating windows.
@@ -199,7 +200,7 @@ bindsym $mod+r mode "resize"
 
 xwayland force
 
-bar { swaybar_command waybar }
+#bar { swaybar_command waybar }
 
 exec waybar
 #exec swayidle -w before-sleep 'swaylock -f -c 000000'
@@ -207,14 +208,14 @@ exec waybar
 # mako implements freedesktop dbus notificaton api
 exec mako
 
+# kanshi implements output profiles for displays
+# reminder for me: profile configs are in .config/kanshi
+exec kanshi
+
 # start my "must-have" applications
-# start major apps:
-workspace number 4
-exec keepassxc
-workspace number 3
-exec thunderbird
-workspace number 2
-exec firefox
-workspace number 1
-exec foot
+# start major apps, but only on laptop display always:
+exec swaymsg "workspace 1 output eDP-1; exec foot"
+exec swaymsg "workspace 2 output eDP-1; exec firefox"
+exec swaymsg "workspace 3 output eDP-1; exec thunderbird"
+exec swaymsg "workspace 4 output eDP-1; exec keepassxc"
 
