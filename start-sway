@@ -1,0 +1,24 @@
+#!/bin/sh
+export XDG_SESSION_TYPE=wayland
+export XDG_SESSION_DESKTOP=sway
+export XDG_CURRENT_DESKTOP=sway
+
+# Wayland stuff
+export QT_QPA_PLATFORM=xcb
+export SDL_VIDEODRIVER=wayland
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+# sway environment modifiers
+# https://github.com/swaywm/sway/issues/6167
+#export WLR_DRM_NO_MODIFIERS=1
+#helps against lag?
+#https://github.com/swaywm/sway/issues/7519#issuecomment-1518920177
+#export WLR_DRM_NO_ATOMIC=1
+#export WLR_DRM_NO_MODIFIERS=1
+#export WLR_NO_HARDWARE_CURSORS=1
+#export WLR_DRM_NO_ATOMIC=1
+#export WLR_RENDERER=gles2
+#export WLR_RENDERER=vulkan
+
+exec sway >> /tmp/sway.log 2>&1
+#exec sway "$@"
