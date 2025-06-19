@@ -76,6 +76,12 @@ bindsym $mod+Shift+s exec grimshot copy area
 bindsym XF86MonBrightnessUp exec light -A 5
 bindsym XF86MonBrightnessDown exec light -U 5
 
+# display rotation
+bindsym $mod+Alt+Up exec swaymsg output - transform normal
+bindsym $mod+Alt+Down exec swaymsg output - transform 180
+bindsym $mod+Alt+Left exec swaymsg output - transform 270
+bindsym $mod+Alt+Right exec swaymsg output - transform 90
+
 
 # audio
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-send "Muted" -c "audio" -t 100
