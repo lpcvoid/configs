@@ -1,6 +1,7 @@
 #!/usr/bin/fish
 
 mkdir -p $HOME/.config/sway
+mkdir -p $HOME/.config/swaylock
 mkdir -p $HOME/.config/waybar
 mkdir -p $HOME/.config/mako
 mkdir -p $HOME/.config/fish
@@ -9,6 +10,7 @@ mkdir -p $HOME/.config/kanshi
 mkdir -p $HOME/.config/foot
 
 cp -r ./sway/* $HOME/.config/sway
+cp -r ./swaylock/* $HOME/.config/swaylock
 cp -r ./waybar/* $HOME/.config/waybar
 cp -r ./mako/* $HOME/.config/mako
 cp -r ./fish/* $HOME/.config/fish

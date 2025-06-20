@@ -1,0 +1,5 @@
+daemonize
+show-failed-attempts
+color=00000000
+ignore-empty-password
+show-keyboard-layout
